@@ -76,6 +76,7 @@ class ProjectController extends Controller
     public function show($id, Request $request)
     {
         $data['project'] = Project::with('module')->findOrFail($id);
+        $data['total_budged'] = Module::query()->where('project_id', $id)->sum("price");
         if ($request->ajax()) {
             return Datatables::of($data['project']->module)
             ->addColumn('action', function ($row) {

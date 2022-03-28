@@ -17,10 +17,10 @@
                             <td>Client Name</td><td> : {{ $project->client_name }}</td>
                         </tr>
                         <tr>
-                          <td>Total Budged</td><td> : Rp. {{ \DB::select('select sum(price) as total_budged from modules where project_id='.$project->id)[0]->total_budged }}</td>
+                          <td>Total Budged</td><td> : Rp. {{ number_format($total_budged, 0, ",", ".") }}</td>
                       </tr>
                     </table>
-                    
+
                    <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Add Module
@@ -65,7 +65,7 @@
                   <td width="180">Module Code</td>
                   <td>{{ Form::text('module_code',null,['class'=>'form-control module_code','placeholder'=>'Module Code'])}}</td>
               </tr>
-              <tr>  
+              <tr>
                 <td>Module name</td>
                   <td>{{ Form::text('module_name',null,['class'=>'form-control module_name','placeholder'=>'Module Name'])}}</td>
               </tr>
@@ -103,7 +103,7 @@
         <input type="hidden" name="feature_id" class="feature_id">
         <div class="modal-body">
           <table class="table table-bordered">
-            <tr>  
+            <tr>
                 <td>Module name</td>
                   <td>{{ Form::select('module_id',$module,null,['class'=>'form-control module_id'])}}</td>
               </tr>
