@@ -82,7 +82,7 @@ class ProjectController extends Controller
             ->addColumn('action', function ($row) {
                 $action  = '<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="editModule(' . $row->id . ')" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>';
                 $action .= \Form::open(['url' => 'module/' . $row->id,'method' => 'delete','style' => 'float:right']);
-                $action .= "<button type='submit'class='btn btn-danger btn-sm'><i class='fas fa-trash-alt'></i></button>";
+                $action .= "<button type='submit' class='btn btn-danger btn-sm'><i class='fas fa-trash-alt'></i></button>";
                 $action .= \Form::close();
                 return $action;
             })
@@ -94,15 +94,19 @@ class ProjectController extends Controller
                 $listFeature = "";
                 foreach ($feature as $fe) {
                     $checked = $fe->is_done == 1 ? 'checked' : '';
-                    $listFeature .= "<i onclick='featureEdit(" . $fe->id . ")' class='fas fa-edit' data-bs-toggle='modal' data-bs-target='#exampleModalFeature'></i> <i class='fas fa-trash' onclick='featureDelete(" . $fe->id . ")'></i> <input type='checkbox' $checked> " . $fe->name . '<br>';
+                    $listFeature .= "<i onclick='featureEdit(" . $fe->id . ")' class='fas fa-edit' data-bs-toggle='modal' data-bs-target='#exampleModalFeature'></i> <i class='fas fa-trash' onclick='featureDelete(" . $fe->id . ")'></i> <input type='checkbox' $checked> " . $fe->name . '<br>' . '<div class="text-wrap" style="width: 20rem;">' . $fe->description . '</div>' . '<br><br>';
                 }
                 return $listFeature;
             })
-            ->rawColumns(['feature','action','module_name'])
+            ->editColumn('price', function ($row) {
+                return 'Rp ' . number_format( $row->price, 0, ",", ".");
+            })
+            ->rawColumns(['feature','action','module_name','price'])
             ->make(true);
         }
         $data['module'] = Module::pluck('module_name', 'id');
         return view('project.show', $data);
+//        dd($data);
     }
 
     /**

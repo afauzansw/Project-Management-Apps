@@ -9,5 +9,5 @@ class Feature extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['module_id','name','is_done'];
+    protected $fillable = ['module_id','name','is_done','description'];
 }
