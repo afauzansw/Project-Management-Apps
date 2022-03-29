@@ -18,6 +18,7 @@ class CreateModuleFeaturesTable extends Migration
             $table->integer('module_id');
             $table->string('name');
             $table->boolean('is_done')->default(false);
+            $table->text('description')->nullable();
             $table->index(['id', 'module_id']);
             $table->timestamps();
         });
